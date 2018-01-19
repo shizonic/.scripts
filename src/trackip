@@ -1,9 +1,7 @@
 #!/bin/python
 
-import os
 import sys
 import requests
-import json
 
 if len(sys.argv) < 2:
     print("[trackip] No arguments passed, append --help or -h for a list of switches")
@@ -11,4 +9,12 @@ elif sys.argv[1] == "-h" or sys.argv[1] == "--help":
     print("[trackip] -h / --help # Shows you this\n[trackip] Usage: trackip [IPADDR]")
 else:
     r = requests.get('http://ipinfo.io/' + sys.argv[1])
-    print(r.json())
+    data = r.json()
+    print("IP: " + data["ip"])
+    print("Hostname: " + data["hostname"])
+    print("City: " + data["city"])
+    print("Region: " + data["region"])
+    print("Country: " + data["country"])
+    print("Coordinates: " + data["loc"])
+    print("Organization: " + data["org"])
+    print("Postal Code: " + data["postal"])
