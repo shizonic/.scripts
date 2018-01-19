@@ -1,0 +1,26 @@
+#!/bin/python
+
+import os
+import sys
+import socket
+import getpass
+
+
+def clearterminal():
+    os.system("clear")
+
+def main():
+    user = getpass.getuser()
+    host = socket.gethostname()
+    homedir = os.environ["HOME"]
+    clearterminal()
+    if len(sys.argv) < 2:
+        print("[todo.py] No arguments passed, append --help or -h for a list of switches")
+        sys.exit()
+    if sys.argv[1] == "--help" or sys.argv[1] == "-h":
+        print("[todo.py] Switches:\n\n  -h # Shows you this\n  -a [TODO] # Add a todo\n  -d [LineNum] # Remove a todo\n  -l # List all todos")
+        sys.exit()
+    if sys.argv[1] == "-a"
+
+if __name__ == "__main__":
+    main()
