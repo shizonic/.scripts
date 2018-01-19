@@ -6,7 +6,7 @@ then
     exit 1
 elif [ "${1}" == "--help" ]
 then
-    echo "Valid expressions are INTEGER OPERATOR INTEGER like for say 2 + 2"
+    echo "Valid expressions are INTEGER OPERATOR INTEGER like 2 + 2"
     echo "Expressions can also have multiple operators and more integers like 2 + 2 - 1"
     exit 1
 fi
