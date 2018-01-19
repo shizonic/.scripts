@@ -1,0 +1,34 @@
+#!/bin/sh
+
+if [[ $(whoami) != "root" ]]
+    then echo "Please run as root"
+    exit 1
+fi
+if [ "$(ls /bin | grep trizen)" == "trizen" ]
+then
+    PKGMAN=trizen
+else
+    PKGMAN=pacman
+fi
+clear
+echo "Enter the name of the directory where the backup will be stored with no trailing slash, preferably on a seperate drive"
+read BDIR
+DATE=$(date +%Y-%m-%d)
+clear
+echo "Starting backup..."
+sleep 2
+mkdir "${BDIR}/temp"
+mkdir "${BDIR}/temp/pkglist"
+TEMPDIR="${BDIR}/temp"
+${PKGMAN} -Q > "${TEMPDIR}/pkglist/packagelist-all"
+${PKGMAN} -Qe > "${TEMPDIR}/pkglist/packagelist-explicit"
+if [ "$1" == "--pac" ]
+then
+    tar --xattrs -jcpvf "${BDIR}/pacbackup-${DATE}.tar.bz2" "/var/lib/pacman/local" "${TEMPDIR}/pkglist"
+    echo "If no errors were shown, a new backup has been created at ${BDIR}/pacbackup-${DATE}.tar.bz2"
+else
+    tar --xattrs -jcpvf "${BDIR}/backup-${DATE}.tar.bz2" "/home" "/var" "/etc" "/boot" "${TEMPDIR}/pkglist"
+    echo "If no errors were shown, a new backup has been created at ${BDIR}/backup-${DATE}.tar.bz2"
+fi
+rm -r "${TEMPDIR}"
+read

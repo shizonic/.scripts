@@ -1,0 +1,8 @@
+#!/bin/sh
+
+if [ "$1" == "-c" ]
+then
+    for ((n=0;n<${2};n++)); do echo -e "$(curl -s https://icanhazdadjoke.com/)\n"; done
+else
+    echo -e "$(curl -s https://icanhazdadjoke.com/)\n"
+fi
