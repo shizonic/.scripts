@@ -3,12 +3,11 @@
 if [ -z "${1}" ]
 then
     echo "Use the parameter --help to get help"
-    exit 1
 elif [ "${1}" == "--help" ]
 then
     echo "Valid expressions are INTEGER OPERATOR INTEGER like 2 + 2"
     echo "Expressions can also have multiple operators and more integers like 2 + 2 - 1"
-    exit 1
+else
+    res=$((${1} ${2} ${3} ${4} ${5} ${6} ${7} ${8} ${9}))
+    echo "${res}"
 fi
-
-echo $((${1} ${2} ${3} ${4} ${5} ${6} ${7} ${8} ${9} ${10} ${11} ${12} ${13} ${14} ${15}))

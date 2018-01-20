@@ -6,7 +6,6 @@ then
 elif [ "$1" == "--help" ]
 then
     echo "Usage: weather [LOCATION]"
-    echo "The location shall be a city or province name for it to work"
 else
     clear
     curl -s wttr.in/~${1}
