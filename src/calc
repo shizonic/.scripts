@@ -18,19 +18,19 @@ def help():
     print("    / or 4 ## Division")
     return
 
-def addi(v1,v2):
+def addi(v1,v2): # Add the numbers v1 and v2
     return int(v1) + int(v2)
 
-def subt(v1,v2):
+def subt(v1,v2): # Subtract the numbers v2 from v1
     return int(v1) - int(v2)
 
-def mult(v1,v2):
+def mult(v1,v2): # Multiply the numbers v1 and v2
     return int(v1) * int(v2)
 
-def divi(v1,v2):
+def divi(v1,v2): # Divide the numbers v1 by v2
     return int(v1) // int(v2)
 
-def expo(v1,v2):
+def expo(v1,v2): # Raise v1 to the power of v2
     return int(v1) ** int(v2)
 
 def main():
