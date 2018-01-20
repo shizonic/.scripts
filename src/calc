@@ -2,6 +2,22 @@
 
 import sys
 
+def noargs():
+    print("[calc] No arguments passed, use the -h or --help switches for a list of options")
+    return
+
+def help():
+    print("[calc] Usage: calc [OPTIONS] [INTEGER] [OPERATOR] [INTEGER]")
+    print("[calc] List of switches:")
+    print("    -n ## Switch to program/number operator mode")
+    print("\n[calc] List of operators:")
+    print("Note that number operators are only available when using the -n switch")
+    print("    + or 1 ## Addition")
+    print("    - or 2 ## Substraction")
+    print("    \* or 3 ## Multiplication")
+    print("    / or 4 ## Division")
+    return
+
 def addi(v1,v2):
     return int(v1) + int(v2)
 
@@ -15,7 +31,13 @@ def divi(v1,v2):
     return int(v1) // int(v2)
 
 def main():
-    if sys.argv[1] != "-n":
+    if len(sys.argv) < 2: # Check if any args are provided
+        noargs() # Show the player some info
+
+    elif sys.argv[1] == "-h" or sys.argv[1] == "--help": # Check for a help switch
+        help() # Show the help text
+
+    elif sys.argv[1] != "-n": # Regular operator mode
         if sys.argv[2] == "+":
             res = addi(sys.argv[1], sys.argv[3])
             print(res)
@@ -29,7 +51,7 @@ def main():
             res = divi(sys.argv[1], sys.argv[3])
             print(res)
 
-    elif sys.argv[1] == "-n":
+    elif sys.argv[1] == "-n": # Program/Number operator mode
         if sys.argv[3] == "1":
             res = addi(sys.argv[2], sys.argv[4])
             print(res)
