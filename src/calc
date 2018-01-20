@@ -1,13 +1,47 @@
-#!/bin/sh
+#!/bin/python
 
-if [ -z "${1}" ]
-then
-    echo "Use the parameter --help to get help"
-elif [ "${1}" == "--help" ]
-then
-    echo "Valid expressions are INTEGER OPERATOR INTEGER like 2 + 2"
-    echo "Expressions can also have multiple operators and more integers like 2 + 2 - 1"
-else
-    res=$((${1} ${2} ${3} ${4} ${5} ${6} ${7} ${8} ${9}))
-    echo "${res}"
-fi
+import sys
+
+def addi(v1,v2):
+    return int(v1) + int(v2)
+
+def subt(v1,v2):
+    return int(v1) - int(v2)
+
+def mult(v1,v2):
+    return int(v1) * int(v2)
+
+def divi(v1,v2):
+    return int(v1) // int(v2)
+
+def main():
+    if sys.argv[1] != "-n":
+        if sys.argv[2] == "+":
+            res = addi(sys.argv[1], sys.argv[3])
+            print(res)
+        elif sys.argv[2] == "-":
+            res = subt(sys.argv[1], sys.argv[3])
+            print(res)
+        elif sys.argv[2] == "*":
+            res = mult(sys.argv[1], sys.argv[3])
+            print(res)
+        elif sys.argv[2] == "/":
+            res = divi(sys.argv[1], sys.argv[3])
+            print(res)
+
+    elif sys.argv[1] == "-n":
+        if sys.argv[3] == "1":
+            res = addi(sys.argv[2], sys.argv[4])
+            print(res)
+        elif sys.argv[3] == "2":
+            res = subt(sys.argv[2], sys.argv[4])
+            print(res)
+        elif sys.argv[3] == "3":
+            res = mult(sys.argv[2], sys.argv[4])
+            print(res)
+        elif sys.argv[3] == "4":
+            res = divi(sys.argv[2], sys.argv[4])
+            print(res)
+
+if __name__ == "__main__":
+    main()
