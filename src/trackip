@@ -8,7 +8,7 @@ if len(sys.argv) < 2:
 elif sys.argv[1] == "-h" or sys.argv[1] == "--help":
     print("[trackip] -h / --help # Shows you this\n[trackip] Usage: trackip [IPADDR]")
 else:
-    r = requests.get('http://ipinfo.io/' + sys.argv[1])
+    r = requests.get("http://ipinfo.io/" + sys.argv[1])
     data = r.json()
     print("IP: " + data["ip"])
     print("Hostname: " + data["hostname"])
