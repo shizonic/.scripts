@@ -14,16 +14,22 @@ def help():
     print("    -h or --help ## Shows you this\n")
     print("    -o ## Optimize the pacman database")
     print("    -u ## Show orphans / unused dependencies")
+    print("    -k ## Clean the pacman cache of all packages except installed ones and 1 older version for downgrades")
+    print("    -c ## Clean the pacman cache of all packages except installed ones")
     return
 
 def parseargs():
     args = sys.argv[1]
-    argdict = {'optimize': False, 'listorphans': False}
+    argdict = {'optimize': False, 'listorphans': False, 'softclean': False, 'hardclean': False}
     for char in args:
         if char == "o":
             argdict['optimize'] = True
         if char == "u":
             argdict['listorphans'] = True
+        if char == "k":
+            argdict['softclean'] = True
+        if char == "c":
+            argdict['hardclean'] = True
     return argdict
 
 def runopt(options):
@@ -31,10 +37,22 @@ def runopt(options):
         print("Optimizing pacman database...\n")
         os.system("sudo pacman-optimize")
         print("Done!\n")
+
     if options['listorphans']:
         print("List of orphans / unused dependencies:\n")
         os.system("sudo pacman -Qdtq")
         print("")
+
+    if options['softclean']:
+        print("Cleaning pacman cache of all packages except installed ones and 1 older version for downgrades...\n")
+        os.system("sudo paccache -rvuk0")
+        os.system("sudo paccache -rvk2")
+        print("Done!\n")
+
+    if options['hardclean']:
+        print("Cleaning pacman cache of all packages except the current version of the installed ones...\n")
+        os.system("sudo pacman -Sc")
+        print("Done!\n")
     return
 
 def main():
