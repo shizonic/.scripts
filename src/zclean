@@ -1,6 +1,6 @@
 #!/bin/sh
 
-user1=archie
+USER1=archie
 
 if [[ $(whoami) != "root" ]]
     then echo "Run as root"
@@ -14,9 +14,25 @@ else
     PKGMAN=pacman
 fi
 
+checkoptional ()
+{
+    if [ "$1" == "--help" ]
+    then
+        echo "Parameters:"
+        echo "--help ## Shows you this"
+        echo "--pacclear ## Clear the pacman cache except for currently installed packages"
+    fi
+
+    elif [ "$1" == "--pacclear" ]
+    then
+        ${PKGMAN} -Sc
+    fi
+}
+
 echo "Cleaning..."
-${PKGMAN} -Scc
+paccache -rk 2
+paccache -ruk0
 rm -r /root/.cache
-rm -r /home/archie/.cache
-rm -r /var/log/journal/*
+rm -r /home/${USER1}/.cache
+checkoptional
 echo "Done!"
