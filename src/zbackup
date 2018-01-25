@@ -25,11 +25,11 @@ ${PKGMAN} -Qe > "${TEMPDIR}/pkglist/packagelist-explicit"
 if [ "$1" == "--pac" ]
 then
     bfile="${BDIR}/pacbackup-${DATE}.tar.xz"
-    tar --xattrs -cpvf - "/var/lib/pacman/local" "${TEMPDIR}/pkglist" | xz -z9k --memory=70% --stdout --lzma2=dict=64Mi > ${bfile}
+    tar --xattrs -cpvf - "/var/lib/pacman/local" "${TEMPDIR}/pkglist" | xz -z9k --memory=70% --stdout > ${bfile}
     echo "If no errors were shown, a new backup has been created at ${BDIR}/pacbackup-${DATE}.tar.xz"
 else
     bfile="${BDIR}/backup-${DATE}.tar.xz"
-    tar --xattrs -cpvf - "/home" "/var" "/etc" "/boot" "${TEMPDIR}/pkglist" | xz -z9k --memory=70% --stdout --lzma2=dict=128Mi > ${bfile}
+    tar --xattrs -cpvf - "/home" "/var" "/etc" "/boot" "${TEMPDIR}/pkglist" | xz -z9k --memory=70% --stdout > ${bfile}
     echo "If no errors were shown, a new backup has been created at ${BDIR}/backup-${DATE}.tar.xz"
 fi
 rm -r "${TEMPDIR}"
