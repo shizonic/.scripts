@@ -8,8 +8,8 @@ echo ""
 
 USER1=archie
 
-# POSIX root check 
-if ! [ $(id -u) = 0 ]; then
+# POSIX compliant root check 
+if ! [ "$(id -u)" = 0 ]; then
    echo "Please run as root!"
    exit 1
 fi
@@ -18,7 +18,7 @@ fi
 if [ -z "${USER1}" ]
 then 
    echo "USER1 not set"
-   exit 0
+   exit 1
 fi
 
 echo "Warning! This will delete the cache folders for all users configured in this script! Do you wish to continue? [y/N]"
@@ -45,3 +45,5 @@ then
     echo ""
     echo "Done!"
 fi
+
+exit 0
