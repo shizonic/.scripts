@@ -1,18 +1,47 @@
 #!/bin/sh
 
+# Exit on error
+set -e
+
+clear
+echo ""
+
 USER1=archie
 
-if [[ $(whoami) != "root" ]]
-    then echo "Run as root"
-    exit 1
+# POSIX root check 
+if ! [ $(id -u) = 0 ]; then
+   echo "Please run as root!"
+   exit 1
+fi
+
+# check that USER1 is set as using it in a rm command, safety check
+if [ -z "${USER1}" ]
+then 
+   echo "USER1 not set"
+   exit 0
 fi
 
 echo "Warning! This will delete the cache folders for all users configured in this script! Do you wish to continue? [y/N]"
-read input
-if [ "$input" == "y" ]
+read -r input
+if [ "$input" = "y" ]
 then
     echo "Cleaning..."
-    rm -r /root/.cache/*
-    rm -r /home/${USER1}/.cache/*
+    echo ""
+    
+    rm -rv /root/.cache/*
+    rm -rv /home/${USER1}/.cache/*
+    
+    # Clean journalctl files(systemd logging system)"
+    # Remove archived journal files until the disk space they use falls 
+    # below 100M
+    journalctl --vacuum-size=100M
+   
+    # Deletes the core dump folder at /var/lib/systemd/coredump/* 
+    # Core dumps consists of the recorded state of the working memory 
+    # of a computer program at a specific time, generally when the program has 
+    # crashed or otherwise terminated abnormally. They can take up a lot of 
+    # space. Alternatively  core dumping can be disabled 
+    rm -rvf /var/lib/systemd/coredump/*
+    echo ""
     echo "Done!"
 fi
