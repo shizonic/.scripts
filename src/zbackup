@@ -17,18 +17,20 @@ DATE=$(date +%Y-%m-%d)
 clear
 echo "Starting backup..."
 sleep 2
-mkdir "${BDIR}/temp"
-mkdir "${BDIR}/temp/pkglist"
-TEMPDIR="${BDIR}/temp"
+mkdir "${BDIR}/.temp"
+mkdir "${BDIR}/.temp/pkglist"
+TEMPDIR="${BDIR}/.temp"
 ${PKGMAN} -Q > "${TEMPDIR}/pkglist/packagelist-all"
 ${PKGMAN} -Qe > "${TEMPDIR}/pkglist/packagelist-explicit"
 if [ "$1" == "--pac" ]
 then
-    tar --xattrs -jcpvf "${BDIR}/pacbackup-${DATE}.tar.bz2" "/var/lib/pacman/local" "${TEMPDIR}/pkglist"
-    echo "If no errors were shown, a new backup has been created at ${BDIR}/pacbackup-${DATE}.tar.bz2"
+    bfile="${BDIR}/pacbackup-${DATE}.tar.xz"
+    tar --xattrs -cpvf - "/var/lib/pacman/local" "${TEMPDIR}/pkglist" | xz -z9k --memory=70% --stdout --lzma2=dict=64Mi > ${bfile}
+    echo "If no errors were shown, a new backup has been created at ${BDIR}/pacbackup-${DATE}.tar.xz"
 else
-    tar --xattrs -jcpvf "${BDIR}/backup-${DATE}.tar.bz2" "/home" "/var" "/etc" "/boot" "${TEMPDIR}/pkglist"
-    echo "If no errors were shown, a new backup has been created at ${BDIR}/backup-${DATE}.tar.bz2"
+    bfile="${BDIR}/backup-${DATE}.tar.xz"
+    tar --xattrs -cpvf - "/home" "/var" "/etc" "/boot" "${TEMPDIR}/pkglist" | xz -z9k --memory=70% --stdout --lzma2=dict=128Mi > ${bfile}
+    echo "If no errors were shown, a new backup has been created at ${BDIR}/backup-${DATE}.tar.xz"
 fi
 rm -r "${TEMPDIR}"
 read
