@@ -11,7 +11,7 @@ def help():
     print("[pactools] Usage: pactools [OPTIONS] ## Note that all switches/options are to be combined into a single string which must be perceded by a hyphen.")
     print("Do also note that the user who runs the program must have sudo permissions")
     print("[pactools] List of switches:")
-    print("    -h or --help ## Shows you this")
+    print("    -h or --help ## Shows you this\n")
     print("    -o ## Optimize the pacman database")
     print("    -u ## Show orphans / unused dependencies")
     return
