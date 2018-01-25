@@ -13,10 +13,11 @@ def help():
     print("    -n ## Switch to program/number operator mode")
     print("\n[calc] List of operators:")
     print("Note that number operators are only available when using the -n switch")
-    print("    + or 1 ## Addition")
-    print("    - or 2 ## Substraction")
-    print("    \* or 3 ## Multiplication")
-    print("    / or 4 ## Division")
+    print("    + or 0 ## Addition")
+    print("    - or 1 ## Substraction")
+    print("    \* or 2 ## Multiplication")
+    print("    / or 3 ## Division")
+    print("    4 ## Raise x to the power of y")
     return
 
 def addi(v1,v2): # Add the numbers v1 and v2
@@ -56,19 +57,19 @@ def main():
             print(res)
 
     elif sys.argv[1] == "-n": # Program/Number operator mode
-        if sys.argv[3] == "1":
+        if sys.argv[3] == "0":
             res = addi(sys.argv[2], sys.argv[4])
             print(res)
-        elif sys.argv[3] == "2":
+        elif sys.argv[3] == "1":
             res = subt(sys.argv[2], sys.argv[4])
             print(res)
-        elif sys.argv[3] == "3":
+        elif sys.argv[3] == "2":
             res = mult(sys.argv[2], sys.argv[4])
             print(res)
-        elif sys.argv[3] == "4":
+        elif sys.argv[3] == "3":
             res = divi(sys.argv[2], sys.argv[4])
             print(res)
-        elif sys.argv[3] == "5":
+        elif sys.argv[3] == "4":
             res = expo(sys.argv[2], sys.argv[4])
             print(res)
 
