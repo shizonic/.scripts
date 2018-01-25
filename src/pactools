@@ -1,5 +1,6 @@
 #!/bin/python
 
+import os
 import sys
 
 def noargs():
@@ -7,14 +8,47 @@ def noargs():
     return
 
 def help():
-    print("[pactools] Usage: pactools [OPTIONS]")
+    print("[pactools] Usage: pactools [OPTIONS] ## Note that all switches/options are to be combined into a single string which must be perceded by a hyphen.")
+    print("Do also note that the user who runs the program must have sudo permissions")
     print("[pactools] List of switches:")
     print("    -h or --help ## Shows you this")
+    print("    -o ## Optimize the pacman database")
+    print("    -u ## Show orphans / unused dependencies")
+    return
+
+def parseargs():
+    args = sys.argv[1]
+    argdict = {'optimize': False, 'listorphans': False}
+    for char in args:
+        if char == "o":
+            argdict['optimize'] = True
+        if char == "u":
+            argdict['listorphans'] = True
+    return argdict
+
+def runopt(options):
+    if options['optimize']:
+        print("Optimizing pacman database...\n")
+        os.system("sudo pacman-optimize")
+        print("Done!\n")
+    if options['listorphans']:
+        print("List of orphans / unused dependencies:\n")
+        os.system("sudo pacman -Qdtq")
+        print("")
     return
 
 def main():
     if len(sys.argv) < 2: # Check if any args are provided
         noargs() # Show the player some info
+
+    elif sys.argv[1] == "-h" or sys.argv[1] == "--help": # Check for a help switch
+        help() # Show the help text
+
+    else:
+        options = parseargs() # Parse arguments and store them in a dict
+        runopt(options)
+
+    return
 
 if __name__ == "__main__":
     main()
