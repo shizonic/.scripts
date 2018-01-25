@@ -1,0 +1,22 @@
+#!/bin/sh
+
+user1=archie
+
+if [[ $(whoami) != "root" ]]
+    then echo "Run as root"
+    exit 1
+fi
+
+if [ "$(ls /bin | grep trizen)" == "trizen" ]
+then
+    PKGMAN=trizen
+else
+    PKGMAN=pacman
+fi
+
+echo "Cleaning..."
+${PKGMAN} -Scc
+rm -r /root/.cache
+rm -r /home/archie/.cache
+rm -r /var/log/journal/*
+echo "Done!"
