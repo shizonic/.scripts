@@ -23,16 +23,16 @@ checkoptional ()
         echo "--pacclear ## Clear the pacman cache except for currently installed packages"
     fi
 
-    elif [ "$1" == "--pacclear" ]
+    elif [ "$1" == "--all" ]
     then
         ${PKGMAN} -Sc
+        rm -r /root/.cache/*
+        rm -r /home/${USER1}/.cache/*
     fi
 }
 
 echo "Cleaning..."
-paccache -rk 2
 paccache -ruk0
-rm -r /root/.cache
-rm -r /home/${USER1}/.cache
+paccache -rk 2
 checkoptional
 echo "Done!"
