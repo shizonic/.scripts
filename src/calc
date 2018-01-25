@@ -3,12 +3,13 @@
 import sys
 
 def noargs():
-    print("[calc] No arguments passed, use the -h or --help switches for a list of options")
+    print("[calc] No arguments passed, use the -h or --help switch for a list of options")
     return
 
 def help():
     print("[calc] Usage: calc [OPTIONS] [INTEGER] [OPERATOR] [INTEGER]")
     print("[calc] List of switches:")
+    print("    -h or --help ## Shows you this")
     print("    -n ## Switch to program/number operator mode")
     print("\n[calc] List of operators:")
     print("Note that number operators are only available when using the -n switch")

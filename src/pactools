@@ -1,0 +1,20 @@
+#!/bin/python
+
+import sys
+
+def noargs():
+    print("[pactools] No arguments passed, use the -h or --help switch for a list of options")
+    return
+
+def help():
+    print("[pactools] Usage: pactools [OPTIONS]")
+    print("[pactools] List of switches:")
+    print("    -h or --help ## Shows you this")
+    return
+
+def main():
+    if len(sys.argv) < 2: # Check if any args are provided
+        noargs() # Show the player some info
+
+if __name__ == "__main__":
+    main()

@@ -7,32 +7,12 @@ if [[ $(whoami) != "root" ]]
     exit 1
 fi
 
-if [ "$(ls /bin | grep trizen)" == "trizen" ]
+echo "Warning! This will delete the cache folders for all users configured in this script! Do you wish to continue? [y/N]"
+read input
+if [ "$input" == "y" ]
 then
-    PKGMAN=trizen
-else
-    PKGMAN=pacman
+    echo "Cleaning..."
+    rm -r /root/.cache/*
+    rm -r /home/${USER1}/.cache/*
+    echo "Done!"
 fi
-
-checkoptional ()
-{
-    if [ "$1" == "--help" ]
-    then
-        echo "Parameters:"
-        echo "--help ## Shows you this"
-        echo "--pacclear ## Clear the pacman cache except for currently installed packages"
-    fi
-
-    elif [ "$1" == "--all" ]
-    then
-        ${PKGMAN} -Sc
-        rm -r /root/.cache/*
-        rm -r /home/${USER1}/.cache/*
-    fi
-}
-
-echo "Cleaning..."
-paccache -ruk0
-paccache -rk 2
-checkoptional
-echo "Done!"
