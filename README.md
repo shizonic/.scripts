@@ -4,4 +4,4 @@ A repo for bash and python scripts i use
 
 ## Dependencies
 
-The latest version of Requests from pip
+[Requests for Python](https://www.archlinux.org/packages/extra/any/python-requests/)
